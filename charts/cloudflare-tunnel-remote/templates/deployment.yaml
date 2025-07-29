@@ -34,6 +34,10 @@ spec:
           - tunnel
           # We can regulate the cloudflared version via an image tag.
           - --no-autoupdate
+          {{- if .Values.cloudflare.tunnel_params.noChunkedEncoding }}
+          - --no-chunked-encoding
+          {{- end }}
+          - --protocol {{ .Values.cloudflare.tunnel_params.protocol }}
           # In a k8s environment, the metrics server needs to listen outside the pod it runs on.
           # The address 0.0.0.0:2000 allows any pod in the namespace.
           - --metrics
